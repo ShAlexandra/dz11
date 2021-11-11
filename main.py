@@ -33,8 +33,125 @@ print(reverse('w ee rt fff xyz'), 'xyz fff rt ee w')
 # Например, из 'a b c d e f' получится 'f a b c d e'
 # Решите задачу в две строки используя срезы.
 def shift(s):
-    return s[s.rfind(' ')+1:]+' '+s[:s.rfind(' ')]
+    return s[s.rfind(' ') + 1:] + ' ' + s[:s.rfind(' ')]
 
 
 print(shift('a b c d e f'), 'f a b c d e')
 print(shift('w ee rt fff xyz'), 'xyz w ee rt fff')
+
+
+# A. Пончики
+# Дано количество пончиков (целое число);
+# Нужно вернуть строку следующего вида:
+# 'Количество пончиков: <count>', где <count> это количество,
+# переданное в функцию как параметр.
+# Однако, если количество 10 и более - нужно использовать слово
+# 'много', вместо текущего количества.
+# Таким образом, donuts(5) вернет 'Количество пончиков: 5'
+# а donuts(23) - 'Количество пончиков: много'
+def donuts(count):
+    if count > 9:
+        return "Количество пончиков: много"
+    else:
+        return "Количество пончиков: " + str(count)
+
+
+print(donuts(4), u'Количество пончиков: 4')
+print(donuts(9), 'Количество пончиков: 9')
+print(donuts(10), 'Количество пончиков: много')
+print(donuts(99), 'Количество пончиков: много')
+
+
+# B. Оба конца
+# Дана строка s.
+# Верните строку, состоящую из первых 2
+# и последних 2 символов исходной строки.
+# Таким образом, из строки 'spring' получится 'spng'.
+# Однако, если длина строки меньше, чем 2 -
+# верните просто пустую строчку.
+def both_ends(s):
+    if len(s) > 2:
+        return s[0:2] + s[len(s) - 2:]
+    else:
+        return ''
+
+
+print(both_ends('spring'), 'spng')
+print(both_ends('Hello'), 'Helo')
+print(both_ends('a'), '')
+print(both_ends('xyz'), 'xyyz')
+
+
+# C. Кроме первого
+# Дана строка s.
+# Верните строку, в которой все вхождения ее первого символа
+# заменены на '*', за исключением самого этого первого символа.
+# Т.е., из 'babble' получится 'ba**le'.
+# Предполагается, что длина строки 1 и более.
+# Подсказка: s.replace(stra, strb) вернет версию строки,
+# в которой все вхождения stra будут заменены на strb.
+def fix_start(s):
+    pass
+
+
+print(fix_start('babble'), 'ba**le')
+print(fix_start('aardvark'), 'a*rdv*rk')
+print(fix_start('google'), 'goo*le')
+print(fix_start('donut'), 'donut')
+
+
+# A. Начало и конец совпадают
+# Функция принимает в качестве аргумента список строк.
+# Необходимо вернуть количество строк,
+# длина которых составляет 2 символа и более,
+# а первый и последний символы этих строк совпадают.
+# Примечание: в python нет оператора ++. Но += сработает.
+def match_ends(words):
+    count = 0
+    for el in words:
+        if len(el) > 1 and el[0:1] == el[len(el) - 1:]:
+            count += 1
+    return count
+
+
+print(match_ends(['aba', 'xyz', 'aa', 'x', 'bbb']), 3)
+print(match_ends(['', 'x', 'xy', 'xyx', 'xx']), 2)
+print(match_ends(['aaa', 'be', 'abc', 'hello']), 1)
+
+
+# B. Начинающиеся с X в начале
+# Функция принимает в качестве аргумента список строк.
+# Необходимо вернуть отсортированный список строк, в котором:
+# сначала идет группа строк, начинающихся на 'x', затем все остальные.
+# Наример: из ['mix', 'xyz', 'apple', 'xanadu', 'aardvark'] получится
+# ['xanadu', 'xyz', 'aardvark', 'apple', 'mix']
+# Подсказка: это можно сделать при помощи склеивания 2х заранее отсортированных списков
+def front_x(words):
+    s = []
+    s1 = []
+    for el in words:
+        if el[0:1] == 'x':
+            s.append(el)
+        else:
+            s1.append(el)
+    return sorted(s)+sorted(s1)
+
+
+print(front_x(['bbb', 'ccc', 'axx', 'xzz', 'xaa']), ['xaa', 'xzz', 'axx', 'bbb', 'ccc'])
+print(front_x(['ccc', 'bbb', 'aaa', 'xcc', 'xaa']), ['xaa', 'xcc', 'aaa', 'bbb', 'ccc'])
+print(front_x(['mix', 'xyz', 'apple', 'xanadu', 'aardvark']), ['xanadu', 'xyz', 'aardvark', 'apple', 'mix'])
+
+
+# D. Удаление соседей
+# Дан список чисел.
+# Нужно вернуть список, где все соседние элементы
+# были бы сведены к одному элементу.
+# Таким образом, из [1, 2, 2, 3, 4, 4] получится [1, 2, 3, 4].
+def remove_adjacent(nums):
+    return list(set(nums))
+
+
+print(remove_adjacent([1, 2, 2, 3]), [1, 2, 3])
+print(remove_adjacent([2, 2, 3, 3, 3, 3]), [2, 3])
+print(remove_adjacent([4, 5, 5, 4, 4]), [4, 5, 4])
+print(remove_adjacent([]), [])
